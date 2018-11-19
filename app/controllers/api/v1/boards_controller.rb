@@ -4,4 +4,16 @@ class Api::V1::BoardsController < ApplicationController
     render json: { success: "ok", status: 200 }
   end
 
+  def create
+  end
+
+  def edit
+  end
+
+  def udpate
+  end
+
+  def destroy
+  end
+
 end
