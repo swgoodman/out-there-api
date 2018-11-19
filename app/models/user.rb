@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  has_many :boards
   belongs_to :group
   has_many :boards, through: :groups
   has_many :ideas
