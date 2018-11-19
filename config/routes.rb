@@ -3,7 +3,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :boards
+      resource :users do
+        resource :groups
+      end
+      resources :boards, :ideas, :comments
     end
   end
 
