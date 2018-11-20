@@ -3,10 +3,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resource :users do
-        resource :groups
+      resources :users, :only => [:create, :show, :update, :destroy] do
+        resources :groups, :only => [:index, :create, :show, :update, :destroy]
       end
-      resources :boards, :ideas, :comments
     end
   end
 
