@@ -7,41 +7,39 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
-    # render json: @user
     render json: { success: "ok", status: 200 }
   end
 
-  # def create
-  #   @user = User.create(user_params)
-  #
-  #   if @user.save
-  #     session[:user_id] = @user.id
-  #     # send USER INFO JSON
-  #   else
-  #     render :new
-  #   end
-  # end
-  #
-  def show
-    # @user = User.find_by(id: params[:id])
+  def create
+    @user = User.create(user_params)
+
+    if @user.save
+      session[:user_id] = @user.id
+      # send USER INFO JSON
+    else
+      render :new
+    end
   end
-  #
-  # def edit
-  # end
-  #
-  # def udpate
-  #   @user = User.find_by(id: params[:id])
-  #
-  #   if @user.update(user_params)
-  #     # send USER INFO JSON
-  #   else
-  #     render :edit
-  #   end
-  # end
-  #
-  # def destroy
-  # end
+
+  def show
+    @user = User.find_by(id: params[:id])
+  end
+
+  def edit
+  end
+
+  def udpate
+    @user = User.find_by(id: params[:id])
+
+    if @user.update(user_params)
+      # send USER INFO JSON
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+  end
 
   # private
   #
