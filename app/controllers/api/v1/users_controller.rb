@@ -7,22 +7,16 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def new
-    render json: { success: "ok", status: 200 }
+
   end
 
   def create
-    @user = User.create(user_params)
-
-    if @user.save
-      session[:user_id] = @user.id
-      # send USER INFO JSON
-    else
-      render :new
-    end
+    # RECEIVES NEW USER POST METHOD
   end
 
   def show
     @user = User.find_by(id: params[:id])
+    render json: { success: "ok", status: 200 }
   end
 
   def edit
