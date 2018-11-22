@@ -4,6 +4,10 @@ class Api::V1::GroupsController < ApplicationController
     render json: { success: "ok", status: 200 }
   end
 
+  def show
+    render json: { success: "ok", status: 200 }
+  end
+
   def create
   end
 
@@ -15,5 +19,5 @@ class Api::V1::GroupsController < ApplicationController
 
   def destroy
   end
-  
+
 end
