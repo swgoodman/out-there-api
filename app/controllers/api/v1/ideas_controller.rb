@@ -1,19 +1,30 @@
 class Api::V1::IdeasController < ApplicationController
-
   def index
-    render json: { success: "ok", status: 200 }
+    ideas = get_current_user.ideas.all
+
+    render json: ideas
   end
 
   def create
-  end
+    idea = get_current_user.ideas.build(idea_params)
+    idea.save
 
-  def edit
-  end
-
-  def udpate
+    render json: idea
   end
 
   def destroy
+    idea = Idea.find(params[:id])
+    idea.destroy
+
+    render json: idea
   end
 
+  private
+
+  def idea_params
+    params.require(:idea).permit(
+        :header,
+        :body
+      )
+  end
 end
