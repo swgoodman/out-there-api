@@ -10,29 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_21_002535) do
+ActiveRecord::Schema.define(version: 2018_11_18_221817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "boards", force: :cascade do |t|
-    t.string "name"
-    t.string "color"
-  end
-
   create_table "comments", force: :cascade do |t|
+    t.bigint "idea_id"
     t.string "body"
     t.integer "likes"
-  end
-
-  create_table "groups", force: :cascade do |t|
-    t.string "name"
+    t.index ["idea_id"], name: "index_sub_todos_on_todo_id"
   end
 
   create_table "ideas", force: :cascade do |t|
+    t.bigint "user_id"
     t.string "header"
     t.string "body"
     t.integer "likes"
+    t.index ["user_id"], name: "index_todos_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,7 +35,6 @@ ActiveRecord::Schema.define(version: 2018_11_21_002535) do
     t.string "email"
     t.string "password_digest"
     t.string "image"
-    t.integer "group_id"
   end
 
 end
