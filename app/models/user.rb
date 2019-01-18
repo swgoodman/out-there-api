@@ -1,9 +1,9 @@
 class User < ApplicationRecord
-  belongs_to :group
-  has_many :boards, through: :groups
-  has_many :ideas
-  has_many :comments
-
   has_secure_password
 
+  validates :username, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true
+  validates :password, presence: true
+
+  has_many :todos
 end
