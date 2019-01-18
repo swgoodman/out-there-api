@@ -1,55 +1,39 @@
 class Api::V1::UsersController < ApplicationController
-  # before_action :set_user, only: [:show, :edit, :update, :destroy]
-
-
-  def index
-    render json: { success: "ok", status: 200 }
-  end
-
-  def new
-
-  end
-
   def create
-    # RECEIVES NEW USER POST METHOD
-  end
+    user = User.create(user_params)
 
-  def show
-    @user = User.find_by(id: params[:id])
-    render json: { success: "ok", status: 200 }
-  end
-
-  def edit
-  end
-
-  def udpate
-    @user = User.find_by(id: params[:id])
-
-    if @user.update(user_params)
-      # send USER INFO JSON
+    if user
+      jwt = Auth.encrypt({ user_id: user.id })
+      render json: { jwt: jwt, current: user }
     else
-      render :edit
+      render json: { error: 'Failed to Sign Up' }, status: 400
     end
   end
 
-  def destroy
+  def login
+    user = User.find_by(username: params[:user][:username])
+
+    if user && user.authenticate(params[:user][:password])
+      jwt = Auth.encrypt({ user_id: user.id })
+      render json: { jwt: jwt, current: user }
+    else
+      render json: { error: 'Failed to Log In' }, status: 400
+    end
   end
 
-  # private
-  #
-  # helper_method :set_user
-  #
-  #   def set_user
-  #     @user = User.find(params[:id])
-  #   end
-  #
-  #   def user_params
-  #     params.require(:user).permit(
-  #       :username,
-  #       :email,
-  #       :password,
-  #       :image
-  #       )
-  #   end
+  def show
+    render json: get_current_user
+  end
 
+  private
+
+  def user_params
+    params.require(:user).permit(
+        :username,
+        :password,
+        :password_confirmation,
+        :firstname,
+        :lastname
+      )
+  end
 end
