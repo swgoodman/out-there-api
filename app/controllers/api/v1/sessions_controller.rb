@@ -1,9 +1,10 @@
-class Api::V1::UsersController < ApplicationController
+class Api::V1::SessionsController < ApplicationController
   def create
     @user = User.create(user_params)
 
     if @user.save
       session[:user_id] = @user.id
+      binding.pry
       render json: { current: user }
     else
       render json: { error: 'Failed to Sign Up' }, status: 400
@@ -13,19 +14,14 @@ class Api::V1::UsersController < ApplicationController
   def login
     @user = User.find_by(username: params[:user][:username])
     if @user
-      session[:user_id] = @user.id
-      render json: { current: @user }
+      render json: { current: user }
     else
       render json: { error: 'Failed to Log In' }, status: 400
     end
   end
 
   def show
-    @user = User.find_by(email: params[:email])
-    if @user
-      session[:user_id] = @user.id
-      render json: @user
-    end
+    render json: current_user
   end
 
   private

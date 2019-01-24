@@ -1,6 +1,7 @@
 class Api::V1::IdeasController < ApplicationController
   def index
-    ideas = get_current_user.ideas.all
+    user = User.find(session[:user_id])
+    ideas = user.ideas.all
 
     render json: ideas
   end
