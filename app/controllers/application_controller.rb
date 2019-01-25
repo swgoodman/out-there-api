@@ -1,16 +1,16 @@
 class ApplicationController < ActionController::API
-  def logged_in?
-    !!current_user
+  def index
+    render json: { message: "successful", status: 200 }
   end
 
-  private
+  def get_current_user
+    jwt_token = request.headers['HTTP_AUTHORIZATION'] # .gsub('Bearer ', '')
 
-  def require_logged_in
-    redirect_to root_path unless logged_in?
-  end
+    if jwt_token
+      user_info = Auth.decode(jwt_token)
+      user ||= User.find(user_info['user_id'])
+    end
 
-
-  def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    user
   end
 end
