@@ -21,11 +21,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(email: params[:email])
-    if @user
-      session[:user_id] = @user.id
-      render json: @user
-    end
+    render json: @user
   end
 
   private
