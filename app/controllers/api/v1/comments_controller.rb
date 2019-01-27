@@ -11,7 +11,7 @@ class Api::V1::CommentsController < ApplicationController
     comment = idea.comments.build(comment_params)
     comment.save
 
-    render json: comments
+    render json: comment
   end
 
   def destroy
