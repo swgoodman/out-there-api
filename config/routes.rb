@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post 'signup', to: 'users#create', as: 'user_signup'
       post 'login', to: 'users#login', as: 'user_login'
 
+      resources :boards
       resources :ideas do
         resources :comments
       end

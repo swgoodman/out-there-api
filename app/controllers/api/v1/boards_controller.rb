@@ -1,6 +1,7 @@
 class Api::V1::BoardsController < ApplicationController
   def index
     boards = get_current_user.boards.all
+
     render json: boards
   end
 
