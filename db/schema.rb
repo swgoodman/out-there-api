@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 2019_01_27_212133) do
     t.string "header"
     t.string "body"
     t.integer "likes"
-    t.integer "board_id"
     t.index ["user_id"], name: "index_todos_on_user_id"
   end
 
@@ -40,6 +39,7 @@ ActiveRecord::Schema.define(version: 2019_01_27_212133) do
     t.string "email"
     t.string "password_digest"
     t.string "image"
+    t.integer "board_id"
   end
 
 end
