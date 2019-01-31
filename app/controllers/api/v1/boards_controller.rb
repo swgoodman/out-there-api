@@ -1,12 +1,12 @@
 class Api::V1::BoardsController < ApplicationController
   def index
-    boards = get_current_user.boards.all
-
+    boards = get_current_user.boards.find_or_create_by(:name)
+    binding.pry
     render json: boards
   end
 
   def create
-    board = get_current_user.board.find_or_create_by(name: board_params.name)
+    board = Board.new(board_params)
     board.save
 
     render json: board
@@ -21,7 +21,7 @@ class Api::V1::BoardsController < ApplicationController
 
   private
 
-  def idea_params
+  def board_params
     params.require(:board).permit(
         :name
       )

@@ -11,8 +11,9 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def login
+    binding.pry
     user = User.find_by(username: params[:user][:username])
-    
+
     if user && user.authenticate(params[:user][:password])
       jwt = Auth.encrypt({ user_id: user.id })
       render json: { jwt: jwt, current: user }

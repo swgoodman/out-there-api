@@ -22,16 +22,17 @@ ActiveRecord::Schema.define(version: 2019_01_27_212133) do
   create_table "comments", force: :cascade do |t|
     t.bigint "idea_id"
     t.string "body"
-    t.integer "likes"
-    t.index ["idea_id"], name: "index_sub_todos_on_todo_id"
+    t.index ["idea_id"], name: "index_comments_on_idea_id"
   end
 
   create_table "ideas", force: :cascade do |t|
     t.bigint "user_id"
+    t.bigint "board_id"
     t.string "header"
     t.string "body"
     t.integer "likes"
-    t.index ["user_id"], name: "index_todos_on_user_id"
+    t.index ["board_id"], name: "index_ideas_on_board_id"
+    t.index ["user_id"], name: "index_ideas_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
