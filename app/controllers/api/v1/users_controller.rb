@@ -1,7 +1,9 @@
 class Api::V1::UsersController < ApplicationController
   def create
     user = User.create(user_params)
-
+    if params[:user][:existing_board]
+      user.board = Board.find_by(name: params[:user][:existing_board]).id
+    end
     if user
       jwt = Auth.encrypt({ user_id: user.id })
       render json: { jwt: jwt, current: user }
@@ -11,7 +13,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def login
-    binding.pry
     user = User.find_by(username: params[:user][:username])
 
     if user && user.authenticate(params[:user][:password])
@@ -33,7 +34,8 @@ class Api::V1::UsersController < ApplicationController
         :username,
         :email,
         :password,
-        :password_confirmation
+        :password_confirmation,
+        :existing_board
       )
   end
 end
