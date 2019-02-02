@@ -34,8 +34,7 @@ class Api::V1::UsersController < ApplicationController
         :username,
         :email,
         :password,
-        :password_confirmation,
-        :existing_board
+        :password_confirmation
       )
   end
 end
