@@ -6,5 +6,5 @@ class User < ApplicationRecord
   validates :password, presence: true
 
   has_many :ideas
-  belongs_to :board
+  has_many :boards
 end
