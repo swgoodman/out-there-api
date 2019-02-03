@@ -1,9 +1,7 @@
 class Api::V1::UsersController < ApplicationController
   def create
     user = User.create(user_params)
-    if params[:user][:existing_board]
-      user.board = Board.find_by(name: params[:user][:existing_board]).id
-    end
+    
     if user
       jwt = Auth.encrypt({ user_id: user.id })
       render json: { jwt: jwt, current: user }
