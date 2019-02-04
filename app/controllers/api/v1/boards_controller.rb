@@ -1,15 +1,14 @@
 class Api::V1::BoardsController < ApplicationController
   def index
-    board = Board.find_by(id: get_current_user.board_id)
-    render json: board
+    boards = get_current_user.boards
+
+    render json: boards
   end
 
   def create
     board = Board.find_or_create_by(name: board_params[:name])
-    binding.pry
     board.users << get_current_user
     board.save
-    binding.pry
     render json: board
   end
 
