@@ -5,9 +5,11 @@ class Api::V1::BoardsController < ApplicationController
   end
 
   def create
-    board = Board.new(board_params)
+    board = Board.find_or_create_by(name: board_params[:name])
+    binding.pry
+    board.users << get_current_user
     board.save
-
+    binding.pry
     render json: board
   end
 

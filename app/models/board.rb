@@ -1,4 +1,5 @@
 class Board < ApplicationRecord
-  has_many :users
-  has_many :ideas, through: :users
+  has_many :board_users
+  has_many :users, through: :board_users
+  has_many :ideas
 end

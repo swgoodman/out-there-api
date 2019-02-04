@@ -5,6 +5,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true
 
+  has_many :board_users
   has_many :ideas
-  has_many :boards
+  has_many :boards, through: :board_users
 end
