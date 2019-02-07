@@ -6,6 +6,7 @@ class Api::V1::IdeasController < ApplicationController
 
   def create
     idea = get_current_user.ideas.build(idea_params)
+    idea.board = Board.find_by(id: params[:board][:id])
     idea.save
 
     render json: idea

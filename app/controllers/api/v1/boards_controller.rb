@@ -12,12 +12,13 @@ class Api::V1::BoardsController < ApplicationController
     render json: board
   end
 
-  def destroy
-    idea = Idea.find(params[:id])
-    idea.destroy
-
-    render json: idea
+  def show
+    board = Board.find(params[:id])
+    ideas = board.ideas.all
+    render json: {ideas: ideas, board: board}
   end
+
+
 
   private
 
