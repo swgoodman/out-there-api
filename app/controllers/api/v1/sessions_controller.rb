@@ -1,7 +1,7 @@
 class Api::V1::SessionsController < ApplicationController
   def create
     @user = User.create(user_params)
-
+    
     if @user.save
       session[:user_id] = @user.id
       binding.pry

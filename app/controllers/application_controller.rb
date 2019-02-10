@@ -13,15 +13,4 @@ class ApplicationController < ActionController::API
 
     user
   end
-
-  def get_current_board
-    jwt_token = request.headers['HTTP_AUTHORIZATION'] # .gsub('Bearer ', '')
-
-    if jwt_token
-      board_info = Auth.decode(jwt_token)
-      board ||= Board.find(board_info['board_id'])
-    end
-
-    user
-  end
 end
