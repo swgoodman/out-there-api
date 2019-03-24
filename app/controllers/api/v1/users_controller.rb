@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApplicationController
+  
+  # Create new user
   def create
     user = User.create(user_params)
     user.save
@@ -11,6 +13,7 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  # Login user and set current
   def login
     user = User.find_by(username: params[:user][:username])
 
@@ -22,12 +25,14 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  # Show current user
   def show
     render json: get_current_user
   end
 
   private
 
+  # Acceptable user params
   def user_params
     params.require(:user).permit(
         :username,

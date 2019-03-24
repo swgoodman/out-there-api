@@ -1,5 +1,6 @@
 require 'jwt'
 
+# JWT encryption functionality
 class Auth
   ALGORITHM = 'HS256'
 
